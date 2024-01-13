@@ -1,0 +1,53 @@
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+    volumes:
+      - ./app:/app
+      - data-app:/vol/web
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DEBUG=1
+      - DB_HOST=database
+      - DB_NAME=django_api
+      - DB_USER=postgres
+      - DB_PASS=root
+    env_file:
+      - ./.env.dev
+    ports:
+      - 8000:8000
+    restart: unless-stopped
+    networks:
+      - net
+    depends_on:
+      database:
+        condition: service_healthy
+  database:
+    container_name: database
+    image: postgres:14-alpine
+    volumes:
+      - data-postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=django_api
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "django_api", "-U", "postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 5532:5432
+    restart: unless-stopped
+    networks:
+      - net
+
+volumes:
+  data-app:
+  data-postgres:
+
+networks:
+  net:
