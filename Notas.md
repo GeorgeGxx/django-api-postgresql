@@ -1,14 +1,26 @@
-.\venv\Scripts\activate
+### Activar virtualenv
 
-Enpoints
+`.\venv\Scripts\activate`
+
+`.\.venv\Scripts\activate`
+
+### Actualizar pip
+
+python.exe -m pip install --upgrade pip
+
+### Instalar dependencias
+
+`pip install -r requirements.txt`
+
+### Endpoints
 
 - GET 
 
-localhost:8000/api/companies
+`localhost:8080/api/companies`
 
 - POST
 
-localhost:8000/api/companies
+`localhost:8080/api/companies`
 
 {
     "name": "Apple",
@@ -24,7 +36,7 @@ localhost:8000/api/companies
 
 - PUT
 
-localhost:8000/api/companies/1
+`localhost:8080/api/companies/1`
 
 {
     "name": "Apple Inc",
@@ -34,4 +46,4 @@ localhost:8000/api/companies/1
 
 - DELETE
 
-localhost:8000/api/companies/1
+`localhost:8080/api/companies/1`

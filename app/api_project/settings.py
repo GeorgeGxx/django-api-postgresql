@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = bool(int(os.environ.get("DEBUG", 0)))
+DEBUG = bool(int(os.environ.get("DEBUG")))
 
 ALLOWED_HOSTS = []
 ALLOWED_HOSTS.extend(
@@ -96,18 +96,24 @@ WSGI_APPLICATION = 'api_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.sqlite3"),
-        "HOST": os.environ.get("DB_HOST", "localhost"),
-        "NAME": os.environ.get("DB_NAME", BASE_DIR / "db.sqlite3"),
-        "USER": os.environ.get("DB_USER", "user"),
-        "PASSWORD": os.environ.get("DB_PASS", "password"),
-        #"PORT": os.environ.get("DB_PORT", "5432"),
+        "DEBUG": os.environ.get("DEBUG"),
+        "ENGINE": os.environ.get("POSTGRES_ENGINE"),
+        # "DB_URL": os.environ.get("POSTGRES_URL"),
+        "HOST": os.environ.get("POSTGRES_HOST"),
+        # "PORT": os.environ.get("POSTGRES_PORT"),
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "SECRET_KEY": os.environ.get("SECRET_KEY"),
+        "ALLOWED_HOSTS": os.environ.get("DJANGO_ALLOWED_HOSTS")
+
         # 'ENGINE': 'django.db.backends.postgresql',
         # 'NAME': 'django_api',
         # 'USER': 'postgres',
         # 'PASSWORD': 'root',
         # 'HOST': 'localhost',
         # 'PORT': '5432',
+
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
     }
